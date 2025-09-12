@@ -9,7 +9,7 @@ import {
 import Button from "@/components/ui/Button";
 import Card from "@/components/ui/Card";
 import Badge from "@/components/ui/Badge";
-import OptimizedImage from "@/components/ui/Image";
+import Image from "@/components/ui/Image";
 
 export default function Home() {
 
@@ -58,21 +58,24 @@ export default function Home() {
       date: "21 Décembre 2024",
       location: "UCAD II, Dakar",
       attendees: "Conférence sur le leadership féminin",
-      image: "/images/events/forum-leadership-2024.jpg"
+      image: "/images/actualites/reflet-5-ans-celebration.jpg",
+      slug: "deuxieme-edition-anniversaire-reseau-reflet"
     },
     {
       title: "Formation Leadership et Développement Personnel",
       date: "9 Septembre 2023",
       location: "CEDAF, Bambilor",
       attendees: "Formatrice : Mme Mbengue",
-      image: "/images/events/atelier-entrepreneuriat.jpg"
+      image: "/images/actualites/nouveau-programme-leadership-transformationnel.jpg",
+      slug: "formation-leadership-developpement-personnel"
     },
     {
       title: "Journée dépistage cancer du col de l'utérus",
       date: "30 Octobre 2023",
       location: "Poste de santé de Bambilor",
       attendees: "Dépistage gratuit",
-      image: "/images/events/networking-evening.jpg"
+      image: "/images/actualites/temoignage-khadija-startup.png",
+      slug: "journee-depistage-cancer-col-uterus"
     }
   ];
 
@@ -187,7 +190,7 @@ export default function Home() {
                 <div className="relative">
                   <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-4 shadow-xl border border-white/20">
                     <div className="relative rounded-xl h-80 overflow-hidden">
-                      <OptimizedImage
+                      <Image
                         src="/images/hero/women-leaders-hero.jpg"
                         alt="Femmes Leaders REFLET"
                         width={500}
@@ -453,14 +456,14 @@ export default function Home() {
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {recentEvents.map((event, index) => (
-              <Card key={`event-${event.title}`} className="overflow-hidden">
+              <Card key={`event-${event.title}`} className="overflow-hidden group hover:shadow-2xl transition-all duration-300 group-hover:-translate-y-2">
                 <div className="relative h-48 overflow-hidden">
-                  <OptimizedImage
+                  <Image
                     src={event.image}
                     alt={event.title}
                     width={400}
                     height={200}
-                    className="w-full h-full object-cover"
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                     animate={false}
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
@@ -470,12 +473,12 @@ export default function Home() {
                       Événement
                     </Badge>
                   </div>
-              </div>
+                </div>
                 <div className="p-6">
-              <h3 className="font-heading text-xl font-semibold text-primary mb-4">
+                  <h3 className="font-heading text-xl font-semibold text-primary mb-4 leading-tight">
                     {event.title}
-              </h3>
-                  <div className="space-y-2 mb-4">
+                  </h3>
+                  <div className="space-y-2 mb-6">
                     <div className="flex items-center text-neutral-dark">
                       <Clock className="mr-2" size={16} />
                       <span className="text-sm">{event.date}</span>
@@ -490,12 +493,13 @@ export default function Home() {
                     </div>
                   </div>
                   <Button
-                    href="/actualites"
+                    href={`/actualites/${event.slug}`}
                     variant="outline"
                     size="sm"
                     className="w-full"
+                    icon={<ArrowRight />}
                   >
-                    Voir les détails
+                    Lire l'article
                   </Button>
                 </div>
               </Card>
