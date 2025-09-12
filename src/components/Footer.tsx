@@ -46,6 +46,11 @@ const Footer = () => {
                   Contact
                 </Link>
               </li>
+              <li>
+                <Link href="/legal" className="text-white/80 hover:text-secondary transition-colors">
+                  Mentions légales
+                </Link>
+              </li>
             </ul>
           </div>
 
@@ -55,7 +60,7 @@ const Footer = () => {
             <div className="space-y-2 text-white/80">
               <p>Dakar, Sénégal</p>
               <p>Email: contact@reflet.sn</p>
-              <p>Tél: +221 XX XXX XX XX</p>
+              <p>Tél: +221 77 247 29 29</p>
             </div>
           </div>
         </div>
@@ -65,7 +70,7 @@ const Footer = () => {
             © 2024 REFLET. Tous droits réservés.
           </p>
           <p className="text-white/60 text-sm mt-2 md:mt-0">
-            Développé par <span className="text-secondary font-medium">Kamit</span>
+            Développé par <a href="https://kamit.tech" target="_blank" rel="noopener noreferrer" className="text-secondary font-medium">Kamit</a>
           </p>
         </div>
       </div>

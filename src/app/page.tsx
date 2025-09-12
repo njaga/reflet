@@ -3,7 +3,7 @@
 import { motion } from "framer-motion";
 import { 
   ArrowRight, Users, Target, BookOpen, Calendar, Sparkles, Star, Heart, 
-  Award, TrendingUp, Globe, Shield, Zap, CheckCircle, Quote, Mail,
+  Award, TrendingUp, Globe, Shield, Zap, CheckCircle, Mail,
   Clock, MapPin, UserCheck, Briefcase, Lightbulb, HandHeart
 } from "lucide-react";
 import Button from "@/components/ui/Button";
@@ -12,32 +12,6 @@ import Badge from "@/components/ui/Badge";
 import OptimizedImage from "@/components/ui/Image";
 
 export default function Home() {
-  const testimonials = [
-    {
-      name: "Aminata Traoré",
-      role: "Directrice Marketing",
-      company: "TechSenegal",
-      image: "/images/team/aminata-traore.jpg",
-      quote: "REFLET m'a donné la confiance nécessaire pour diriger mon équipe avec assurance. Les formations sont exceptionnelles et l'accompagnement personnalisé fait toute la différence.",
-      rating: 5
-    },
-    {
-      name: "Fatou Diagne",
-      role: "Fondatrice",
-      company: "Green Solutions",
-      image: "/images/team/fatou-diagne.jpg",
-      quote: "Grâce au programme Entrepreneuriat de REFLET, j'ai pu lancer ma startup avec succès. Le mentorat et le réseau sont inestimables.",
-      rating: 5
-    },
-    {
-      name: "Mariama Sow",
-      role: "Manager",
-      company: "Banque Internationale",
-      image: "/images/team/mariama-sow.jpg",
-      quote: "Le développement personnel m'a aidée à surmonter mes peurs et à prendre des décisions importantes dans ma carrière. Je recommande vivement !",
-      rating: 5
-    }
-  ];
 
   const features = [
     {
@@ -102,14 +76,6 @@ export default function Home() {
     }
   ];
 
-  const partners = [
-    { name: "Thierno Amadou BA", logo: "/api/placeholder/150/60" },
-    { name: "Binta Ndiaye BA", logo: "/api/placeholder/150/60" },
-    { name: "Yandé Gaye", logo: "/api/placeholder/150/60" },
-    { name: "CEDAF Bambilor", logo: "/api/placeholder/150/60" },
-    { name: "Théâtre National Daniel Sorano", logo: "/api/placeholder/150/60" },
-    { name: "Université Cheikh Anta Diop", logo: "/api/placeholder/150/60" }
-  ];
 
   return (
     <div className="min-h-screen">
@@ -463,76 +429,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Testimonials Section */}
-      <section className="py-24 bg-white">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            className="text-center mb-16"
-          >
-            <Badge variant="secondary" size="lg" className="mb-4">
-              <Quote className="mr-2" size={16} />
-              Témoignages
-            </Badge>
-            <h2 className="font-heading text-3xl md:text-4xl font-bold text-primary mb-4">
-              Ce Que Disent Nos Membres
-            </h2>
-            <p className="text-lg text-neutral-dark max-w-2xl mx-auto">
-              Découvrez les parcours inspirants de femmes qui ont transformé leur vie grâce à REFLET
-            </p>
-          </motion.div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {testimonials.map((testimonial, index) => (
-              <Card key={`testimonial-${testimonial.name}`} className="p-8 overflow-hidden">
-                {/* Profile Image */}
-                <div className="relative mb-6">
-                  <div className="w-20 h-20 mx-auto bg-gradient-to-br from-primary/20 to-secondary/20 rounded-full flex items-center justify-center mb-4 overflow-hidden">
-                    <OptimizedImage
-                      src={testimonial.image}
-                      alt={testimonial.name}
-                      width={80}
-                      height={80}
-                      className="rounded-full"
-                      animate={false}
-                    />
-                  </div>
-                  <div className="absolute -top-2 -right-2 w-8 h-8 bg-secondary rounded-full flex items-center justify-center">
-                    <Quote className="text-primary" size={16} />
-                  </div>
-                </div>
-
-                {/* Content */}
-                <div className="text-center mb-6">
-                  <h4 className="font-heading text-lg font-semibold text-primary mb-1">
-                    {testimonial.name}
-                  </h4>
-                  <p className="text-secondary text-sm mb-1">{testimonial.role}</p>
-                  <p className="text-neutral-dark text-sm">{testimonial.company}</p>
-                </div>
-
-                {/* Rating */}
-                <div className="flex justify-center mb-4">
-                  {Array.from({ length: testimonial.rating }, (_, i) => (
-                    <Star key={`star-${testimonial.name}-${i + 1}`} className="text-secondary fill-current" size={16} />
-                  ))}
-                </div>
-
-                {/* Quote */}
-                <blockquote className="text-neutral-dark italic leading-relaxed text-center">
-                  "{testimonial.quote}"
-                </blockquote>
-
-                {/* Decorative Elements */}
-                <div className="absolute top-4 right-4 w-16 h-16 bg-gradient-to-br from-primary/5 to-secondary/5 rounded-full -z-10"></div>
-                <div className="absolute bottom-4 left-4 w-12 h-12 bg-gradient-to-br from-secondary/5 to-primary/5 rounded-full -z-10"></div>
-              </Card>
-            ))}
-          </div>
-        </div>
-      </section>
 
       {/* Recent Events Section */}
       <section className="py-24 bg-gradient-to-br from-gray-50 to-white">
@@ -608,44 +504,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Partners Section */}
-      <section className="py-24 bg-white">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            className="text-center mb-16"
-          >
-            <Badge variant="secondary" size="lg" className="mb-4">
-              <HandHeart className="mr-2" size={16} />
-              Nos Partenaires
-            </Badge>
-            <h2 className="font-heading text-3xl md:text-4xl font-bold text-primary mb-4">
-              Ils Nous Font Confiance
-            </h2>
-            <p className="text-lg text-neutral-dark max-w-2xl mx-auto">
-              Des institutions et entreprises qui partagent notre vision du leadership féminin
-            </p>
-          </motion.div>
-
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-8">
-            {partners.map((partner, index) => (
-              <motion.div
-                key={`partner-${partner.name}`}
-                initial={{ opacity: 0, scale: 0.8 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.4, delay: index * 0.1 }}
-                className="flex items-center justify-center p-6 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors"
-              >
-                <span className="text-neutral-dark font-medium text-sm text-center">
-                  {partner.name}
-                </span>
-            </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
 
       {/* Newsletter Section */}
       <section className="py-24 bg-gradient-primary text-white relative overflow-hidden">
@@ -688,7 +546,7 @@ export default function Home() {
                       type="email"
                       placeholder="Votre adresse email"
                       required
-                      className="w-full px-6 py-4 rounded-lg text-primary placeholder-neutral-dark border-0 focus:ring-2 focus:ring-secondary focus:outline-none shadow-lg"
+                      className="w-full px-6 py-4 rounded-lg text-primary placeholder-neutral-dark border-2 border-secondary/30 focus:ring-2 focus:ring-secondary focus:outline-none shadow-lg"
                     />
                   </div>
                   <Button

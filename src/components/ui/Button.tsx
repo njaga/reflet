@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import Link from "next/link";
 import { cn } from "@/lib/utils";
 
 interface ButtonProps {
@@ -62,15 +63,15 @@ const Button = ({
 
   if (href) {
     return (
-      <motion.a
-        href={href}
-        className={classes}
+      <motion.div
         whileHover={{ scale: 1.05 }}
         whileTap={{ scale: 0.95 }}
         transition={{ type: "spring", stiffness: 400, damping: 17 }}
       >
-        {content}
-      </motion.a>
+        <Link href={href} className={classes}>
+          {content}
+        </Link>
+      </motion.div>
     );
   }
 

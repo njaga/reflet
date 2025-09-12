@@ -3,8 +3,8 @@
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { 
-  Send, Users, Heart, MessageSquare, BookOpen, User, Calendar, Target, Award,
-  Star, Quote, Globe, TrendingUp, Lightbulb
+  Send, Users, Heart, MessageSquare, BookOpen, User, Calendar, Target,
+  Star, Globe, TrendingUp
 } from "lucide-react";
 
 export default function Rejoindre() {
@@ -105,47 +105,81 @@ export default function Rejoindre() {
             </p>
           </motion.div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {[
-              {
-                icon: BookOpen,
-                title: "Formations Gratuites",
-                description: "Accès à tous nos programmes de formation en leadership et entrepreneuriat"
-              },
-              {
-                icon: Users,
-                title: "Réseau Solidaire",
-                description: "Rejoignez une communauté de femmes leaders motivées et bienveillantes"
-              },
-              {
-                icon: Target,
-                title: "Accompagnement",
-                description: "Mentorat et coaching personnalisé pour votre développement"
-              },
-              {
-                icon: Award,
-                title: "Certification",
-                description: "Obtenez des certifications reconnues sur le marché du travail"
-              },
+          {/* Design moderne avec 3 avantages principaux */}
+          <div className="max-w-6xl mx-auto">
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-16">
+              {/* Avantage Principal */}
+              <motion.div
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6 }}
+                className="lg:col-span-2"
+              >
+                <div className="bg-gradient-to-br from-primary/5 to-secondary/5 rounded-2xl p-8 border border-primary/20 h-full">
+                  <div className="flex items-start space-x-6">
+                    <div className="w-20 h-20 bg-gradient-to-r from-primary to-primary/80 rounded-2xl flex items-center justify-center flex-shrink-0">
+                      <BookOpen className="text-white" size={40} />
+                    </div>
+                    <div>
+                      <h3 className="font-heading text-2xl font-bold text-primary mb-4">
+                        Formations & Développement Complet
+                      </h3>
+                      <p className="text-neutral-dark leading-relaxed mb-4">
+                        Accès gratuit à tous nos programmes de formation en leadership, entrepreneuriat et développement personnel. 
+                        Mentorat personnalisé et certifications reconnues pour booster votre carrière.
+                      </p>
+                      <div className="flex flex-wrap gap-2">
+                        <span className="px-3 py-1 bg-primary/10 text-primary rounded-full text-sm font-medium">Formations gratuites</span>
+                        <span className="px-3 py-1 bg-secondary/20 text-secondary rounded-full text-sm font-medium">Mentorat</span>
+                        <span className="px-3 py-1 bg-primary/10 text-primary rounded-full text-sm font-medium">Certifications</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </motion.div>
+
+              {/* Avantage Réseau */}
+              <motion.div
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.1 }}
+              >
+                <div className="bg-gradient-to-br from-secondary/5 to-primary/5 rounded-2xl p-8 border border-secondary/20 h-full">
+                  <div className="text-center">
+                    <div className="w-20 h-20 bg-gradient-to-r from-secondary to-secondary/80 rounded-2xl flex items-center justify-center mx-auto mb-6">
+                      <Users className="text-primary" size={40} />
+                    </div>
+                    <h3 className="font-heading text-xl font-bold text-primary mb-4">
+                      Réseau Solidaire
+                    </h3>
+                    <p className="text-neutral-dark leading-relaxed mb-4">
+                      Rejoignez une communauté de femmes leaders motivées et bienveillantes qui s'entraident et grandissent ensemble.
+                    </p>
+                    <div className="text-center">
+                      <span className="px-3 py-1 bg-secondary/20 text-secondary rounded-full text-sm font-medium">Communauté</span>
+                    </div>
+                  </div>
+                </div>
+              </motion.div>
+            </div>
+
+            {/* Avantages secondaires en format horizontal */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              {[
               {
                 icon: Heart,
                 title: "Impact Social",
-                description: "Participez à des projets qui transforment positivement la société"
+                  description: "Projets qui transforment positivement la société"
               },
               {
                 icon: Globe,
                 title: "Opportunités",
-                description: "Accès à des opportunités de partenariat et de collaboration"
-              },
-              {
-                icon: Lightbulb,
-                title: "Innovation",
-                description: "Participez à des projets innovants et avant-gardistes"
+                  description: "Partenariats et collaborations exclusives"
               },
               {
                 icon: TrendingUp,
-                title: "Développement",
-                description: "Croissance personnelle et professionnelle continue"
+                  title: "Croissance",
+                  description: "Développement personnel et professionnel continu"
               }
             ].map((avantage, index) => (
               <motion.div
@@ -155,19 +189,24 @@ export default function Rejoindre() {
                 transition={{ duration: 0.6, delay: index * 0.1 }}
                 className="group"
               >
-                <div className="bg-white rounded-lg p-8 shadow-lg hover:shadow-2xl transition-all duration-300 group-hover:-translate-y-2 border border-gray-100 h-full">
-                  <div className="w-16 h-16 bg-gradient-to-r from-secondary to-secondary/80 rounded-full flex items-center justify-center mx-auto mb-6">
-                    <avantage.icon className="text-primary" size={32} />
+                  <div className="bg-white rounded-xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 group-hover:-translate-y-1 border border-gray-100">
+                    <div className="flex items-center space-x-4">
+                      <div className="w-12 h-12 bg-gradient-to-r from-primary/10 to-secondary/10 rounded-xl flex items-center justify-center flex-shrink-0">
+                        <avantage.icon className="text-primary" size={24} />
                   </div>
-                  <h3 className="font-heading text-xl font-bold text-primary mb-4 text-center">
+                      <div>
+                        <h4 className="font-heading text-lg font-bold text-primary mb-1">
                     {avantage.title}
-                  </h3>
-                  <p className="text-neutral-dark leading-relaxed text-center">
+                        </h4>
+                        <p className="text-neutral-dark text-sm leading-relaxed">
                     {avantage.description}
                   </p>
+                      </div>
+                    </div>
                 </div>
               </motion.div>
             ))}
+            </div>
           </div>
         </div>
       </section>
@@ -291,7 +330,7 @@ export default function Rejoindre() {
                         id="firstName"
                         name="firstName"
                         required
-                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent"
+                        className="w-full px-4 py-3 border-2 border-secondary/30 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary transition-colors"
                         placeholder="Votre prénom"
                       />
                     </div>
@@ -304,7 +343,7 @@ export default function Rejoindre() {
                         id="lastName"
                         name="lastName"
                         required
-                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent"
+                        className="w-full px-4 py-3 border-2 border-secondary/30 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary transition-colors"
                         placeholder="Votre nom"
                       />
                     </div>
@@ -317,7 +356,7 @@ export default function Rejoindre() {
                         id="email"
                         name="email"
                         required
-                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent"
+                        className="w-full px-4 py-3 border-2 border-secondary/30 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary transition-colors"
                         placeholder="votre@email.com"
                       />
                     </div>
@@ -330,8 +369,8 @@ export default function Rejoindre() {
                         id="phone"
                         name="phone"
                         required
-                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent"
-                        placeholder="+221 XX XXX XX XX"
+                        className="w-full px-4 py-3 border-2 border-secondary/30 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary transition-colors"
+                        placeholder="+221 77 247 29 29"
                       />
                     </div>
                     <div>
@@ -345,7 +384,7 @@ export default function Rejoindre() {
                         required
                         min="18"
                         max="65"
-                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent"
+                        className="w-full px-4 py-3 border-2 border-secondary/30 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary transition-colors"
                         placeholder="Votre âge"
                       />
                     </div>
@@ -358,7 +397,7 @@ export default function Rejoindre() {
                         id="city"
                         name="city"
                         required
-                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent"
+                        className="w-full px-4 py-3 border-2 border-secondary/30 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary transition-colors"
                         placeholder="Votre ville"
                       />
                     </div>
@@ -380,7 +419,7 @@ export default function Rejoindre() {
                         id="profession"
                         name="profession"
                         required
-                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent"
+                        className="w-full px-4 py-3 border-2 border-secondary/30 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary transition-colors"
                         placeholder="Votre profession"
                       />
                     </div>
@@ -391,7 +430,7 @@ export default function Rejoindre() {
                       <select
                         id="experience"
                         name="experience"
-                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent"
+                        className="w-full px-4 py-3 border-2 border-secondary/30 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary transition-colors"
                       >
                         <option value="">Sélectionnez</option>
                         <option value="0-2">0-2 ans</option>
@@ -407,7 +446,7 @@ export default function Rejoindre() {
                       <select
                         id="education"
                         name="education"
-                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent"
+                        className="w-full px-4 py-3 border-2 border-secondary/30 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary transition-colors"
                       >
                         <option value="">Sélectionnez</option>
                         <option value="bac">Baccalauréat</option>
@@ -424,7 +463,7 @@ export default function Rejoindre() {
                       <select
                         id="sector"
                         name="sector"
-                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent"
+                        className="w-full px-4 py-3 border-2 border-secondary/30 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary transition-colors"
                       >
                         <option value="">Sélectionnez</option>
                         <option value="education">Éducation</option>
@@ -454,7 +493,7 @@ export default function Rejoindre() {
                         name="motivation"
                         rows={4}
                         required
-                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent"
+                        className="w-full px-4 py-3 border-2 border-secondary/30 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary transition-colors"
                         placeholder="Décrivez vos motivations et ce que vous attendez de REFLET..."
                       ></textarea>
                     </div>
@@ -466,7 +505,7 @@ export default function Rejoindre() {
                         id="goals"
                         name="goals"
                         rows={4}
-                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent"
+                        className="w-full px-4 py-3 border-2 border-secondary/30 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary transition-colors"
                         placeholder="Décrivez vos objectifs personnels et professionnels..."
                       ></textarea>
                     </div>
@@ -478,7 +517,7 @@ export default function Rejoindre() {
                         id="contribution"
                         name="contribution"
                         rows={4}
-                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent"
+                        className="w-full px-4 py-3 border-2 border-secondary/30 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary transition-colors"
                         placeholder="Décrivez comment vous souhaitez contribuer à notre mission..."
                       ></textarea>
                     </div>
@@ -528,7 +567,7 @@ export default function Rejoindre() {
                       <select
                         id="availability"
                         name="availability"
-                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent"
+                        className="w-full px-4 py-3 border-2 border-secondary/30 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary transition-colors"
                       >
                         <option value="">Sélectionnez</option>
                         <option value="weekend">Week-ends</option>
@@ -544,7 +583,7 @@ export default function Rejoindre() {
                       <select
                         id="format"
                         name="format"
-                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent"
+                        className="w-full px-4 py-3 border-2 border-secondary/30 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary transition-colors"
                       >
                         <option value="">Sélectionnez</option>
                         <option value="presentiel">Présentiel</option>
@@ -591,78 +630,6 @@ export default function Rejoindre() {
         </div>
       </section>
 
-      {/* Témoignages */}
-      <section className="py-24 bg-gray-50">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            className="text-center mb-16"
-          >
-            <div className="inline-flex items-center px-4 py-2 bg-secondary text-primary rounded-full text-sm font-semibold mb-6">
-              <Quote className="mr-2" size={16} />
-              Témoignages
-            </div>
-            <h2 className="font-heading text-4xl md:text-5xl font-bold text-primary mb-6">
-              Elles Témoignent
-            </h2>
-            <p className="text-xl text-neutral-dark max-w-3xl mx-auto">
-              Découvrez les parcours inspirants de nos membres
-            </p>
-          </motion.div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {[
-              {
-                name: "Aminata Diallo",
-                role: "Directrice Marketing",
-                company: "TechSenegal",
-                quote: "REFLET m'a donné la confiance et les outils nécessaires pour diriger avec assurance. C'est une communauté incroyable !",
-                image: "/api/placeholder/80/80"
-              },
-              {
-                name: "Fatou Sarr",
-                role: "Entrepreneure",
-                company: "Green Solutions",
-                quote: "Grâce à REFLET, j'ai pu développer mon entreprise et créer un impact positif dans ma communauté.",
-                image: "/api/placeholder/80/80"
-              },
-              {
-                name: "Mariama Ba",
-                role: "Manager",
-                company: "Banque Internationale",
-                quote: "Le mentorat et les formations de REFLET ont transformé ma carrière et ma vision du leadership.",
-                image: "/api/placeholder/80/80"
-              }
-            ].map((testimonial, index) => (
-              <motion.div
-                key={`testimonial-${testimonial.name}`}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: index * 0.1 }}
-                className="group"
-              >
-                <div className="bg-white rounded-lg p-8 shadow-lg hover:shadow-2xl transition-all duration-300 group-hover:-translate-y-2">
-                  <div className="text-center mb-6">
-                    <div className="w-20 h-20 bg-gradient-to-r from-secondary to-secondary/80 rounded-full mx-auto mb-4 flex items-center justify-center">
-                      <Users className="text-primary" size={32} />
-                    </div>
-                    <h4 className="font-heading text-xl font-bold text-primary mb-2">
-                      {testimonial.name}
-                    </h4>
-                    <p className="text-secondary font-semibold text-sm mb-1">{testimonial.role}</p>
-                    <p className="text-neutral-dark text-sm">{testimonial.company}</p>
-                  </div>
-                  <blockquote className="text-neutral-dark italic text-center leading-relaxed">
-                    "{testimonial.quote}"
-                  </blockquote>
-                </div>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
 
       {/* CTA Final */}
       <section className="py-24 bg-gradient-to-br from-primary to-primary/80 text-white relative overflow-hidden">
@@ -703,13 +670,13 @@ export default function Rejoindre() {
                   <User className="mr-2" size={20} />
                   S'inscrire maintenant
                 </Link>
-                <a
+                <Link
                   href="/contact"
                   className="inline-flex items-center px-8 py-4 border-2 border-white text-white rounded-lg font-semibold hover:bg-white hover:text-primary transition-colors"
                 >
                   <MessageSquare className="mr-2" size={20} />
                   Nous contacter
-                </a>
+                </Link>
               </div>
             </motion.div>
           </div>

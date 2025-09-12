@@ -40,7 +40,7 @@ export default function Actualites() {
       date: "11 Septembre 2023",
       category: "Formations",
       readTime: "4 min",
-      image: "/images/actualites/partenariat-ucad.jpg",
+      image: "/images/actualites/partenariat-ucad.png",
       featured: false,
       slug: "formation-transformation-produits-locaux"
     },
@@ -52,7 +52,7 @@ export default function Actualites() {
       date: "30 Octobre 2023",
       category: "Santé",
       readTime: "3 min",
-      image: "/images/actualites/temoignage-khadija-startup.jpg",
+      image: "/images/actualites/temoignage-khadija-startup.png",
       featured: false,
       slug: "journee-depistage-cancer-col-uterus"
     },
@@ -100,7 +100,7 @@ export default function Actualites() {
       date: "30 Décembre 2023",
       category: "Financement",
       readTime: "4 min",
-      image: "/images/actualites/financement-membres-reseau.jpg",
+      image: "/images/actualites/financement-membres-reseau.jpeg",
       featured: false,
       slug: "financement-dix-membres-reseau"
     },
@@ -216,7 +216,7 @@ export default function Actualites() {
               transition={{ duration: 0.8, delay: 0.4 }}
               className="text-xl md:text-2xl text-white/90 mb-8 max-w-3xl mx-auto"
             >
-              Restez informées de nos dernières nouvelles, programmes et témoignages inspirants
+              Restez informées de nos dernières nouvelles et programmes
             </motion.p>
 
             <motion.div
@@ -232,13 +232,13 @@ export default function Actualites() {
                 <BookOpen className="mr-2" size={20} />
                 Découvrir les articles
               </Link>
-              <a
+              <Link
                 href="/contact"
                 className="inline-flex items-center px-8 py-4 border-2 border-white text-white rounded-lg font-semibold hover:bg-white hover:text-primary transition-colors"
               >
                 <Heart className="mr-2" size={20} />
                 Nous rejoindre
-              </a>
+              </Link>
             </motion.div>
           </div>
         </div>
@@ -324,13 +324,14 @@ export default function Actualites() {
                       </div>
                     </div>
                     
-                    <a
-                      href="/galerie"
-                      className="inline-flex items-center px-8 py-4 bg-primary text-white rounded-lg font-semibold hover:bg-primary/90 transition-colors shadow-lg hover:shadow-xl w-fit"
+                    <Link
+                      href={`/actualites/${article.slug}`}
+                      className="inline-flex items-center px-8 py-4 bg-primary text-white rounded-lg font-semibold hover:bg-primary-700 transition-colors shadow-lg hover:shadow-xl w-fit relative z-10 border-2 border-primary-400"
+                      style={{ minHeight: '50px' }}
                     >
-                      Voir les photos
+                      Lire l'article
                       <ArrowRight className="ml-2" size={18} />
-                    </a>
+                    </Link>
                   </div>
                 </div>
               </div>
@@ -360,6 +361,7 @@ export default function Actualites() {
             </p>
           </motion.div>
 
+
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {articles.filter(article => !article.featured).map((article, index) => (
               <motion.article
@@ -386,15 +388,15 @@ export default function Actualites() {
                   </div>
                   
                   {/* Contenu de l'article */}
-                  <div className="p-6 flex flex-col h-full">
-                    <h3 className="font-heading text-xl font-bold text-primary mb-3 line-clamp-2 leading-tight">
+                  <div className="p-6 flex flex-col">
+                    <h3 className="font-heading text-xl font-bold text-primary mb-3 leading-tight overflow-hidden" style={{ display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical' }}>
                       {article.title}
                     </h3>
-                    <p className="text-neutral-dark text-sm leading-relaxed mb-4 line-clamp-3 flex-grow">
+                    <p className="text-neutral-dark text-sm leading-relaxed mb-6 overflow-hidden" style={{ display: '-webkit-box', WebkitLineClamp: 3, WebkitBoxOrient: 'vertical' }}>
                       {article.excerpt}
                     </p>
                     
-                    <div className="flex items-center justify-between mt-auto">
+                    <div className="space-y-4 mt-auto">
                       <div className="flex items-center gap-4 text-xs text-neutral-dark">
                         <div className="flex items-center">
                           <User className="mr-1" size={12} />
@@ -404,16 +406,26 @@ export default function Actualites() {
                           <Calendar className="mr-1" size={12} />
                           <span>{article.date}</span>
                         </div>
+                        <div className="flex items-center">
+                          <Clock className="mr-1" size={12} />
+                          <span>{article.readTime}</span>
+                        </div>
                       </div>
-                      <div className="flex items-center gap-2">
-                        <span className="text-xs text-neutral-dark">{article.readTime}</span>
-                        <a
-                          href="/galerie"
-                          className="text-primary hover:text-primary/80 transition-colors"
-                        >
-                          <ArrowRight size={16} />
-                        </a>
-                      </div>
+                      <Link
+                        href={`/actualites/${article.slug}`}
+                        className="inline-flex items-center px-4 py-2 bg-primary text-white rounded-lg font-semibold hover:bg-primary/90 transition-colors text-sm w-full justify-center shadow-lg hover:shadow-xl"
+                        style={{ 
+                          minHeight: '44px',
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          width: '100%',
+                          cursor: 'pointer'
+                        }}
+                      >
+                        Lire l'article
+                        <ArrowRight className="ml-2" size={16} />
+                      </Link>
                     </div>
                   </div>
                 </div>
@@ -442,7 +454,7 @@ export default function Actualites() {
                 <input
                   type="email"
                   placeholder="Votre adresse email"
-                  className="flex-1 px-4 py-3 rounded-lg text-primary placeholder-neutral-dark"
+                  className="flex-1 px-4 py-3 rounded-lg text-primary placeholder-neutral-dark border-2 border-white/20 focus:border-secondary focus:outline-none transition-colors"
                 />
                 <button className="bg-secondary text-primary px-6 py-3 rounded-lg font-semibold hover:bg-secondary/90 transition-colors">
                   S'abonner

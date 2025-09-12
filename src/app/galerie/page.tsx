@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import Link from "next/link";
 import { 
   Calendar, MapPin, Users, Heart, Camera, ArrowLeft, Share2, Download
 } from "lucide-react";
@@ -106,20 +107,20 @@ export default function Galerie() {
               transition={{ duration: 0.8, delay: 0.6 }}
               className="flex flex-col sm:flex-row gap-4 justify-center"
             >
-              <a
+              <Link
                 href="/actualites"
                 className="inline-flex items-center px-8 py-4 bg-secondary text-primary rounded-lg font-semibold hover:bg-secondary/90 transition-colors shadow-lg hover:shadow-xl"
               >
                 <ArrowLeft className="mr-2" size={20} />
                 Retour aux actualités
-              </a>
-              <a
+              </Link>
+              <Link
                 href="/contact"
                 className="inline-flex items-center px-8 py-4 border-2 border-white text-white rounded-lg font-semibold hover:bg-white hover:text-primary transition-colors"
               >
                 <Heart className="mr-2" size={20} />
                 Nous rejoindre
-              </a>
+              </Link>
             </motion.div>
           </div>
         </div>
@@ -312,20 +313,20 @@ export default function Galerie() {
                 Rejoignez REFLET et participez à nos formations, événements et actions sociales
               </p>
               <div className="flex flex-col sm:flex-row gap-6 justify-center">
-                <a
+                <Link
                   href="/contact"
                   className="inline-flex items-center px-8 py-4 bg-secondary text-primary rounded-lg font-semibold hover:bg-secondary/90 transition-colors shadow-lg hover:shadow-xl"
                 >
                   <Heart className="mr-2" size={20} />
                   Rejoindre REFLET
-                </a>
-                <a
+                </Link>
+                <Link
                   href="/programmes"
                   className="inline-flex items-center px-8 py-4 border-2 border-white text-white rounded-lg font-semibold hover:bg-white hover:text-primary transition-colors"
                 >
                   <Users className="mr-2" size={20} />
                   Nos programmes
-                </a>
+                </Link>
               </div>
             </motion.div>
           </div>

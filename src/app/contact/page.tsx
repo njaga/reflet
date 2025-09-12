@@ -128,7 +128,7 @@ export default function Contact() {
                         id="firstName"
                         name="firstName"
                         required
-                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent"
+                        className="w-full px-4 py-3 border-2 border-secondary/30 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary transition-colors"
                         placeholder="Votre prénom"
                       />
                     </div>
@@ -141,7 +141,7 @@ export default function Contact() {
                         id="lastName"
                         name="lastName"
                         required
-                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent"
+                        className="w-full px-4 py-3 border-2 border-secondary/30 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary transition-colors"
                         placeholder="Votre nom"
                       />
                     </div>
@@ -156,7 +156,7 @@ export default function Contact() {
                       id="email"
                       name="email"
                       required
-                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent"
+                      className="w-full px-4 py-3 border-2 border-secondary/30 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary transition-colors"
                       placeholder="votre@email.com"
                     />
                   </div>
@@ -169,8 +169,8 @@ export default function Contact() {
                       type="tel"
                       id="phone"
                       name="phone"
-                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent"
-                      placeholder="+221 XX XXX XX XX"
+                      className="w-full px-4 py-3 border-2 border-secondary/30 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary transition-colors"
+                      placeholder="+221 77 247 29 29"
                     />
                   </div>
 
@@ -182,7 +182,7 @@ export default function Contact() {
                       id="subject"
                       name="subject"
                       required
-                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent"
+                      className="w-full px-4 py-3 border-2 border-secondary/30 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary transition-colors"
                     >
                       <option value="">Sélectionnez un sujet</option>
                       <option value="programmes">Informations sur les programmes</option>
@@ -202,7 +202,7 @@ export default function Contact() {
                       name="message"
                       rows={6}
                       required
-                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent"
+                      className="w-full px-4 py-3 border-2 border-secondary/30 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary transition-colors"
                       placeholder="Décrivez votre demande ou votre projet..."
                     ></textarea>
                   </div>
@@ -419,21 +419,20 @@ export default function Contact() {
               <p className="text-xl text-white/90 mb-8 max-w-2xl mx-auto">
                 Rejoignez notre communauté de femmes leaders et transformez votre potentiel
               </p>
-              <div className="flex flex-col sm:flex-row gap-6 justify-center">
-                <a
+              <div className="flex flex-col sm:flex-row gap-6 justify-center"><Link
                   href="/programmes"
                   className="inline-flex items-center px-8 py-4 bg-secondary text-primary rounded-lg font-semibold hover:bg-secondary/90 transition-colors shadow-lg hover:shadow-xl"
                 >
                   <BookOpen className="mr-2" size={20} />
                   Découvrir nos programmes
-                </a>
-                <a
+                </Link>
+                <Link
                   href="/equipe"
                   className="inline-flex items-center px-8 py-4 border-2 border-white text-white rounded-lg font-semibold hover:bg-white hover:text-primary transition-colors"
                 >
                   <Users className="mr-2" size={20} />
                   Rencontrer l'équipe
-                </a>
+                </Link>
               </div>
             </motion.div>
           </div>

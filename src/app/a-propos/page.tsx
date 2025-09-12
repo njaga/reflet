@@ -2,8 +2,8 @@
 
 import { motion } from "framer-motion";
 import { 
-  Heart, Target, Users, Award, Calendar, Star, Quote, 
-  TrendingUp, Globe, Shield, Zap, CheckCircle, 
+  Heart, Target, Users, Award, Calendar, 
+  TrendingUp, Globe, Shield, Zap, 
   BookOpen, HandHeart, Sparkles
 } from "lucide-react";
 import Button from "@/components/ui/Button";
@@ -55,61 +55,27 @@ export default function APropos() {
     {
       name: "Thierno Amadou BA",
       role: "Khalif de Bambilor",
-      image: "/images/team/aminata-traore.jpg",
+      image: "/images/team/thierno-amadou-ba.jpg",
       bio: "Diplomate religieux international, membre fondateur du réseau REFLET",
       expertise: ["Leadership", "Spiritualité", "Développement"]
     },
     {
       name: "Binta Ndiaye BA",
       role: "Présidente du Réseau",
-      image: "/images/team/fatou-diagne.jpg",
+      image: "/images/team/binta-ndiaye-ba.jpg",
       bio: "Spécialiste en Banque-Assurance, Présidente du Réseau des Femmes Leaders autour de Thierno Amadou Ba",
       expertise: ["Finance", "Leadership", "Banque"]
     },
     {
       name: "Yandé Gaye",
       role: "Secrétaire Général",
-      image: "/images/team/mariama-sow.jpg",
+      image: "/images/team/yande-gaye.jpg",
       bio: "Secrétaire Général du réseau REFLET, membre fondateur",
       expertise: ["Administration", "Organisation", "Coordination"]
     }
   ];
 
-  const memberTestimonials = [
-    {
-      name: "Khadija Fall",
-      role: "Directrice Marketing",
-      company: "Senegal Digital",
-      quote: "REFLET m'a transformée. En 2 ans, je suis passée de manager à directrice grâce aux formations et au mentorat.",
-      rating: 5,
-      achievement: "Promotion à un poste de direction"
-    },
-    {
-      name: "Aïcha Ba",
-      role: "Fondatrice",
-      company: "EcoSenegal",
-      quote: "Le réseau REFLET m'a donné la confiance et les outils pour lancer ma startup. Aujourd'hui, j'emploie 12 personnes.",
-      rating: 5,
-      achievement: "Création d'entreprise"
-    },
-    {
-      name: "Ndeye Diop",
-      role: "Chef de Projet",
-      company: "Banque Internationale",
-      quote: "Les programmes de REFLET m'ont aidée à développer mes compétences en leadership. Je dirige maintenant une équipe de 15 personnes.",
-      rating: 5,
-      achievement: "Leadership d'équipe"
-    }
-  ];
 
-  const partners = [
-    { name: "Thierno Amadou BA", type: "Fondateur", logo: "/api/placeholder/120/60" },
-    { name: "Binta Ndiaye BA", type: "Présidente", logo: "/api/placeholder/120/60" },
-    { name: "Yandé Gaye", type: "Secrétaire Général", logo: "/api/placeholder/120/60" },
-    { name: "CEDAF Bambilor", type: "Centre de Formation", logo: "/api/placeholder/120/60" },
-    { name: "Théâtre National Daniel Sorano", type: "Partenaire Culturel", logo: "/api/placeholder/120/60" },
-    { name: "Université Cheikh Anta Diop", type: "Partenaire Académique", logo: "/api/placeholder/120/60" }
-  ];
 
   return (
     <div className="min-h-screen">
@@ -219,7 +185,7 @@ export default function APropos() {
             <div className="space-y-16">
               {timeline.map((item, index) => (
                 <motion.div
-                  key={`timeline-${item.year}`}
+                  key={`timeline-${index}-${item.title.replace(/\s+/g, '-').toLowerCase()}`}
                   initial={{ opacity: 0, x: index % 2 === 0 ? -50 : 50 }}
                   whileInView={{ opacity: 1, x: 0 }}
                   transition={{ duration: 0.6, delay: index * 0.1 }}
@@ -407,111 +373,7 @@ export default function APropos() {
         </div>
       </section>
 
-      {/* Testimonials Section */}
-      <section className="py-24 bg-gray-50">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            className="text-center mb-16"
-          >
-            <Badge variant="secondary" size="lg" className="mb-6">
-              <Quote className="mr-2" size={16} />
-              Témoignages
-            </Badge>
-            <h2 className="font-heading text-4xl md:text-5xl font-bold text-primary mb-6">
-              Leurs Histoires de Succès
-            </h2>
-            <p className="text-xl text-neutral-dark max-w-3xl mx-auto">
-              Découvrez comment REFLET a transformé la vie professionnelle de nos membres
-            </p>
-          </motion.div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {memberTestimonials.map((testimonial, index) => (
-              <motion.div
-                key={`testimonial-${testimonial.name}`}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: index * 0.1 }}
-              >
-                <Card className="p-8 h-full hover:shadow-xl transition-shadow">
-                  <div className="flex items-center mb-4">
-                    {Array.from({ length: testimonial.rating }, (_, i) => (
-                      <Star key={`star-${testimonial.name.replace(/\s+/g, '-')}-${i + 1}`} className="text-secondary fill-current" size={20} />
-                    ))}
-                  </div>
-                  
-                  <blockquote className="text-neutral-dark leading-relaxed mb-6 italic">
-                    "{testimonial.quote}"
-                  </blockquote>
-                  
-                  <div className="border-t border-gray-200 pt-6">
-                    <h4 className="font-heading text-lg font-semibold text-primary mb-1">
-                      {testimonial.name}
-                    </h4>
-                    <p className="text-secondary font-medium mb-2">{testimonial.role}</p>
-                    <p className="text-neutral-dark text-sm mb-3">{testimonial.company}</p>
-                    
-                    <Badge variant="primary" size="sm" className="bg-primary/10 text-primary">
-                      <CheckCircle className="mr-1" size={12} />
-                      {testimonial.achievement}
-                    </Badge>
-                  </div>
-                </Card>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Partners Section */}
-      <section className="py-24 bg-white">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            className="text-center mb-16"
-          >
-            <Badge variant="primary" size="lg" className="mb-6">
-              <HandHeart className="mr-2" size={16} />
-              Nos Partenaires
-            </Badge>
-            <h2 className="font-heading text-4xl md:text-5xl font-bold text-primary mb-6">
-              Un Réseau de Confiance
-            </h2>
-            <p className="text-xl text-neutral-dark max-w-3xl mx-auto">
-              Nous collaborons avec des institutions de renom pour maximiser notre impact
-            </p>
-          </motion.div>
-
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-8">
-            {partners.map((partner, index) => (
-              <motion.div
-                key={`partner-${partner.name.replace(/\s+/g, '-').toLowerCase()}`}
-                initial={{ opacity: 0, scale: 0.8 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.4, delay: index * 0.1 }}
-                className="group"
-              >
-                <Card className="p-6 text-center hover:shadow-lg transition-all duration-300 group-hover:-translate-y-1">
-                  <div className="w-16 h-16 bg-gray-100 rounded-lg mx-auto mb-4 flex items-center justify-center">
-                    <span className="text-neutral-dark font-medium text-sm">Logo</span>
-                  </div>
-                  <h3 className="font-heading text-sm font-semibold text-primary mb-2">
-                    {partner.name}
-                  </h3>
-                  <Badge variant="outline" size="sm" className="text-xs">
-                    {partner.type}
-                  </Badge>
-                </Card>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
 
       {/* Stats Section */}
       <section className="py-24 bg-gradient-primary text-white relative overflow-hidden">

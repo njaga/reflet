@@ -162,13 +162,13 @@ export default function BiographieThierno() {
                 <BookOpen className="mr-2" size={20} />
                 Découvrir sa biographie
               </Link>
-              <a
+              <Link
                 href="/contact"
                 className="inline-flex items-center px-8 py-4 border-2 border-white text-white rounded-lg font-semibold hover:bg-white hover:text-primary transition-colors"
               >
                 <Heart className="mr-2" size={20} />
                 Nous contacter
-              </a>
+              </Link>
             </motion.div>
           </div>
         </div>
@@ -187,7 +187,7 @@ export default function BiographieThierno() {
                 <div className="relative">
                   <div className="w-96 h-96 mx-auto bg-gradient-to-br from-primary/20 to-secondary/20 rounded-full flex items-center justify-center overflow-hidden">
                     <img
-                      src="/images/team/aminata-traore.jpg"
+                      src="/images/team/thierno-amadou-ba.jpg"
                       alt="Thierno Amadou BA"
                       className="w-full h-full object-cover rounded-full"
                     />
