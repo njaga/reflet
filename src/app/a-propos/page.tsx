@@ -9,7 +9,7 @@ import {
 import Button from "@/components/ui/Button";
 import Card from "@/components/ui/Card";
 import Badge from "@/components/ui/Badge";
-import OptimizedImage from "@/components/ui/Image";
+import Image from "@/components/ui/Image";
 
 export default function APropos() {
   const timeline = [
@@ -343,7 +343,7 @@ export default function APropos() {
               >
                 <Card className="p-8 text-center hover:shadow-2xl transition-all duration-300 group-hover:-translate-y-2">
                   <div className="relative mb-6">
-                    <OptimizedImage
+                    <Image
                       src={member.image}
                       alt={member.name}
                       width={120}
