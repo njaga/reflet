@@ -1,0 +1,20 @@
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://reseaureflet.com/sitemap.xml
+
+# Crawl-delay pour éviter la surcharge du serveur
+Crawl-delay: 1
+
+# Bloquer l'accès aux fichiers sensibles
+Disallow: /api/
+Disallow: /_next/
+Disallow: /admin/
+Disallow: /.env
+Disallow: /node_modules/
+
+# Autoriser les images et assets
+Allow: /images/
+Allow: /_next/static/
+Allow: /favicon.ico
