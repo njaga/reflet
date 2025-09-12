@@ -12,7 +12,7 @@ export default function Equipe() {
       name: "Binta Ndiaye BA",
       role: "Présidente du Réseau",
       bio: "Spécialiste en Banque-Assurance, Présidente du Réseau des Femmes Leaders autour de Thierno Amadou Ba. Adresse : Bignona, médina plateau (Ziguinchor-Sénégal).",
-      image: "/images/team/fatou-diagne.jpg",
+      image: "/images/team/binta-ndiaye-ba.jpg",
       linkedin: "#",
       email: "presidente@reseaureflet.com"
     },
@@ -228,7 +228,7 @@ export default function Equipe() {
                 <div className="relative">
                   <div className="w-80 h-80 mx-auto bg-gradient-to-br from-primary/20 to-secondary/20 rounded-full flex items-center justify-center overflow-hidden">
                     <img
-                      src="/images/team/aminata-traore.jpg"
+                      src="/images/team/thierno-amadou-ba.jpg"
                       alt="Thierno Amadou BA"
                       className="w-full h-full object-cover rounded-full"
                     />
