@@ -27,7 +27,6 @@ const Header = () => {
       submenu: [
         { href: "/a-propos", label: "Notre Histoire" },
         { href: "/equipe", label: "Équipe" },
-        { href: "/galerie", label: "Galerie" },
         { href: "/biographie-thierno", label: "Biographie de Thierno" }
       ]
     },
