@@ -43,14 +43,14 @@ export const metadata = {
     address: false,
     telephone: false,
   },
-  metadataBase: new URL("https://reflet-senegal.com"),
+  metadataBase: new URL("https://reseaureflet.com"),
   alternates: {
     canonical: "/",
   },
   openGraph: {
     type: "website",
     locale: "fr_FR",
-    url: "https://reflet-senegal.com",
+    url: "https://reseaureflet.com",
     title: "REFLET - Réseau des Femmes Leaders autour de Thierno",
     description: "Réseau des Femmes Leaders autour de Thierno Amadou BA. Excellence et leadership féminin au Sénégal.",
     siteName: "REFLET",
@@ -68,8 +68,8 @@ export const metadata = {
     title: "REFLET - Réseau des Femmes Leaders autour de Thierno",
     description: "Réseau des Femmes Leaders autour de Thierno Amadou BA. Excellence et leadership féminin au Sénégal.",
     images: ["/images/og-image-reflet.jpg"],
-    creator: "@reflet_senegal",
-    site: "@reflet_senegal",
+    creator: "@reseaureflet",
+    site: "@reseaureflet",
   },
   robots: {
     index: true,

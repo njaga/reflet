@@ -43,7 +43,7 @@ export default function Home() {
     
     const ogImage = document.querySelector('meta[property="og:image"]');
     if (ogImage) {
-      ogImage.setAttribute('content', 'https://reflet-senegal.com/images/og-image-reflet.jpg');
+      ogImage.setAttribute('content', 'https://reseaureflet.com/images/og-image-reflet.jpg');
     }
     
     // Twitter Card
@@ -64,7 +64,7 @@ export default function Home() {
     
     const twitterImage = document.querySelector('meta[name="twitter:image"]');
     if (twitterImage) {
-      twitterImage.setAttribute('content', 'https://reflet-senegal.com/images/og-image-reflet.jpg');
+      twitterImage.setAttribute('content', 'https://reseaureflet.com/images/og-image-reflet.jpg');
     }
   }, []);
 
