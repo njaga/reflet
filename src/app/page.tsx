@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { useEffect } from "react";
 import { 
   ArrowRight, Users, Target, BookOpen, Calendar, Sparkles, Star, Heart, 
   Award, TrendingUp, Globe, Shield, Zap, CheckCircle, Mail,
@@ -12,6 +13,60 @@ import Badge from "@/components/ui/Badge";
 import Image from "@/components/ui/Image";
 
 export default function Home() {
+  // Métadonnées SEO pour la page d'accueil
+  useEffect(() => {
+    // Titre de la page
+    document.title = "REFLET - Réseau des Femmes Leaders autour de Thierno";
+    
+    // Meta description
+    const metaDescription = document.querySelector('meta[name="description"]');
+    if (metaDescription) {
+      metaDescription.setAttribute('content', 'REFLET - Réseau des Femmes Leaders autour de Thierno Amadou BA. Excellence et leadership féminin au Sénégal. Formation, mentorat et développement professionnel.');
+    }
+    
+    // Meta keywords
+    const metaKeywords = document.querySelector('meta[name="keywords"]');
+    if (metaKeywords) {
+      metaKeywords.setAttribute('content', 'REFLET, femmes leaders, leadership féminin, Sénégal, Thierno Amadou BA, formation, mentorat, développement professionnel, Bambilor, réseau, empowerment, entrepreneuriat féminin');
+    }
+    
+    // Open Graph
+    const ogTitle = document.querySelector('meta[property="og:title"]');
+    if (ogTitle) {
+      ogTitle.setAttribute('content', 'REFLET - Réseau des Femmes Leaders autour de Thierno');
+    }
+    
+    const ogDescription = document.querySelector('meta[property="og:description"]');
+    if (ogDescription) {
+      ogDescription.setAttribute('content', 'REFLET - Réseau des Femmes Leaders autour de Thierno Amadou BA. Excellence et leadership féminin au Sénégal.');
+    }
+    
+    const ogImage = document.querySelector('meta[property="og:image"]');
+    if (ogImage) {
+      ogImage.setAttribute('content', 'https://reflet-senegal.com/images/og-image-reflet.jpg');
+    }
+    
+    // Twitter Card
+    const twitterCard = document.querySelector('meta[name="twitter:card"]');
+    if (twitterCard) {
+      twitterCard.setAttribute('content', 'summary_large_image');
+    }
+    
+    const twitterTitle = document.querySelector('meta[name="twitter:title"]');
+    if (twitterTitle) {
+      twitterTitle.setAttribute('content', 'REFLET - Réseau des Femmes Leaders autour de Thierno');
+    }
+    
+    const twitterDescription = document.querySelector('meta[name="twitter:description"]');
+    if (twitterDescription) {
+      twitterDescription.setAttribute('content', 'REFLET - Réseau des Femmes Leaders autour de Thierno Amadou BA. Excellence et leadership féminin au Sénégal.');
+    }
+    
+    const twitterImage = document.querySelector('meta[name="twitter:image"]');
+    if (twitterImage) {
+      twitterImage.setAttribute('content', 'https://reflet-senegal.com/images/og-image-reflet.jpg');
+    }
+  }, []);
 
   const features = [
     {
