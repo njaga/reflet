@@ -1,7 +1,6 @@
 "use client";
 
 import { motion } from "framer-motion";
-import Link from "next/link";
 import { 
   Mail, Award, Users, Target, Heart, Star, TrendingUp, Briefcase
 } from "lucide-react";
@@ -12,7 +11,7 @@ export default function Equipe() {
       name: "Binta Ndiaye BA",
       role: "Présidente du Réseau",
       bio: "Spécialiste en Banque-Assurance, Présidente du Réseau des Femmes Leaders autour de Thierno Amadou Ba. Adresse : Bignona, médina plateau (Ziguinchor-Sénégal).",
-      image: "/images/team/binta-ndiaye-ba.jpg",
+      image: "/images/team/fatou-diagne.jpg",
       linkedin: "#",
       email: "presidente@reseaureflet.com"
     },
@@ -20,7 +19,7 @@ export default function Equipe() {
       name: "Yandé Gaye",
       role: "Secrétaire Général",
       bio: "Secrétaire Général du réseau REFLET, membre fondateur. Responsable de l'administration et de la coordination des activités du réseau.",
-      image: "/images/team/yande-gaye.jpg",
+      image: "/images/team/mariama-sow.jpg",
       linkedin: "#",
       email: "yande.gaye@reseaureflet.com"
     }
@@ -133,20 +132,20 @@ export default function Equipe() {
               transition={{ duration: 0.8, delay: 0.6 }}
               className="flex flex-col sm:flex-row gap-4 justify-center"
             >
-              <Link
+              <a
                 href="/contact"
                 className="inline-flex items-center px-8 py-4 bg-secondary text-primary rounded-lg font-semibold hover:bg-secondary/90 transition-colors shadow-lg hover:shadow-xl"
               >
                 <Heart className="mr-2" size={20} />
                 Rejoindre notre équipe
-              </Link>
-              <Link
+              </a>
+              <a
                 href="/programmes"
                 className="inline-flex items-center px-8 py-4 border-2 border-white text-white rounded-lg font-semibold hover:bg-white hover:text-primary transition-colors"
               >
                 <Target className="mr-2" size={20} />
                 Nos programmes
-              </Link>
+              </a>
             </motion.div>
           </div>
         </div>
@@ -228,7 +227,7 @@ export default function Equipe() {
                 <div className="relative">
                   <div className="w-80 h-80 mx-auto bg-gradient-to-br from-primary/20 to-secondary/20 rounded-full flex items-center justify-center overflow-hidden">
                     <img
-                      src="/images/team/thierno-amadou-ba.jpg"
+                      src="/images/team/aminata-traore.jpg"
                       alt="Thierno Amadou BA"
                       className="w-full h-full object-cover rounded-full"
                     />
@@ -543,20 +542,20 @@ export default function Equipe() {
                 Rejoignez notre équipe de femmes leaders passionnées et participez à la transformation du leadership féminin au Sénégal
               </p>
               <div className="flex flex-col sm:flex-row gap-6 justify-center">
-                <Link
+                <a
                   href="/contact"
                   className="inline-flex items-center px-8 py-4 bg-secondary text-primary rounded-lg font-semibold hover:bg-secondary/90 transition-colors shadow-lg hover:shadow-xl"
                 >
                   <Heart className="mr-2" size={20} />
                   Rejoindre notre équipe
-                </Link>
-                <Link
+                </a>
+                <a
                   href="/programmes"
                   className="inline-flex items-center px-8 py-4 border-2 border-white text-white rounded-lg font-semibold hover:bg-white hover:text-primary transition-colors"
                 >
                   <Target className="mr-2" size={20} />
                   Découvrir nos programmes
-                </Link>
+                </a>
               </div>
             </motion.div>
           </div>

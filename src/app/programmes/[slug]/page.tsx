@@ -5,7 +5,7 @@ import { motion } from "framer-motion";
 import Link from "next/link";
 import { 
   Calendar, User, ArrowRight, Heart, BookOpen, Clock,
-  ArrowLeft, Share2, Copy, Check, Eye, MessageCircle, ThumbsUp,
+  ArrowLeft, Share2, Copy, Check, Eye,
   MapPin, Users, Target, Award, CheckCircle
 } from "lucide-react";
 
@@ -14,6 +14,39 @@ export default function ProgrammeDetail({ params }: { readonly params: Promise<{
   const [isShareMenuOpen, setIsShareMenuOpen] = useState(false);
   const [isCopied, setIsCopied] = useState(false);
   const [programmeViews, setProgrammeViews] = useState(0);
+
+  // Fonction pour déterminer si un programme est passé
+  const isProgrammePassed = (schedule: string) => {
+    // Si le programme est continu ou selon les besoins, il n'est pas passé
+    if (schedule === "Continue" || schedule === "Selon les besoins") {
+      return false;
+    }
+    
+    // Extraire la date du schedule
+    const dateRegex = /(\d{1,2})\s+(\w+)\s+(\d{4})/;
+    const dateMatch = dateRegex.exec(schedule);
+    if (!dateMatch) return false;
+    
+    const day = parseInt(dateMatch[1]);
+    const monthName = dateMatch[2];
+    const year = parseInt(dateMatch[3]);
+    
+    // Convertir le nom du mois en français
+    const monthMap: { [key: string]: number } = {
+      'Janvier': 0, 'Février': 1, 'Mars': 2, 'Avril': 3, 'Mai': 4, 'Juin': 5,
+      'Juillet': 6, 'Août': 7, 'Septembre': 8, 'Octobre': 9, 'Novembre': 10, 'Décembre': 11
+    };
+    
+    const month = monthMap[monthName];
+    if (month === undefined) return false;
+    
+    // Créer la date du programme
+    const programmeDate = new Date(year, month, day);
+    const today = new Date();
+    
+    // Comparer avec la date actuelle
+    return programmeDate < today;
+  };
 
   // Données des programmes (en production, cela viendrait d'une API)
   const programmes = [
@@ -37,6 +70,23 @@ export default function ProgrammeDetail({ params }: { readonly params: Promise<{
       location: "CEDAF, Bambilor",
       slug: "formation-leadership-developpement-personnel",
       instructor: "Mme Mbengue",
+      instructorBio: "Experte en leadership féminin avec plus de 15 ans d'expérience dans le développement des compétences managériales.",
+      participants: "25 participantes",
+      objectives: [
+        "Développer les compétences en leadership situationnel",
+        "Renforcer la confiance en soi et l'assertivité",
+        "Améliorer les capacités de communication",
+        "Favoriser l'épanouissement personnel",
+        "Créer un réseau de soutien mutuel"
+      ],
+      methodology: "La formation combine théorie et pratique avec des ateliers interactifs, des études de cas et des exercices de mise en situation adaptés au contexte sénégalais.",
+      prerequisites: "Aucun prérequis spécifique. Ouvert à toutes les femmes membres du réseau REFLET.",
+      certification: "Certificat de participation REFLET délivré à l'issue de la formation.",
+      gallery: [
+        "/images/actualites/nouveau-programme-leadership-transformationnel.jpg",
+        "/images/actualites/partenariat-ucad.png",
+        "/images/actualites/temoignage-khadija-startup.png"
+      ],
       content: `
         <p>Cette formation intensive en leadership et développement personnel a été conçue spécialement pour les femmes membres du réseau REFLET. Elle vise à renforcer leurs capacités de leadership et à développer leur potentiel personnel.</p>
         
@@ -98,6 +148,23 @@ export default function ProgrammeDetail({ params }: { readonly params: Promise<{
       location: "Rufisque",
       slug: "formation-transformation-produits-locaux",
       instructor: "Mme Fatou GAYE",
+      instructorBio: "Spécialiste en agro-transformation avec une expertise reconnue dans la valorisation des produits locaux sénégalais.",
+      participants: "20 participantes",
+      objectives: [
+        "Maîtriser les techniques de transformation des fruits",
+        "Apprendre la fabrication de jus naturels",
+        "Découvrir les méthodes de conservation",
+        "Développer des activités génératrices de revenus",
+        "Valoriser les ressources locales"
+      ],
+      methodology: "Formation pratique avec démonstrations en direct, ateliers de fabrication et conseils personnalisés pour le lancement d'activités.",
+      prerequisites: "Intérêt pour l'entrepreneuriat et la transformation alimentaire. Aucune expérience préalable requise.",
+      certification: "Certificat de formation en transformation des produits locaux.",
+      gallery: [
+        "/images/actualites/partenariat-ucad.png",
+        "/images/actualites/nouveau-programme-leadership-transformationnel.jpg",
+        "/images/actualites/financement-membres-reseau.jpeg"
+      ],
       content: `
         <p>Cette formation spécialisée permet aux femmes de développer des activités génératrices de revenus en transformant les produits locaux disponibles dans leur région.</p>
         
@@ -153,6 +220,19 @@ export default function ProgrammeDetail({ params }: { readonly params: Promise<{
       location: "Bambilor et environs",
       slug: "actions-sociales-solidarite",
       instructor: "Équipe REFLET",
+      instructorBio: "Équipe dédiée aux actions sociales composée de bénévoles et professionnels engagés dans la solidarité communautaire.",
+      participants: "Variable selon les actions",
+      objectives: [
+        "Apporter un soutien concret aux femmes en difficulté",
+        "Organiser des actions de solidarité communautaire",
+        "Fournir des services médicaux gratuits",
+        "Distribuer des aides matérielles",
+        "Renforcer les liens de solidarité"
+      ],
+      methodology: "Actions directes sur le terrain avec mobilisation de bénévoles, partenariats avec des professionnels de santé et collaboration avec les communautés locales.",
+      prerequisites: "Engagement bénévole et sens de la solidarité.",
+      certification: "Attestation de participation aux actions sociales.",
+      gallery: [],
       content: `
         <p>Le programme d'actions sociales REFLET s'engage activement dans la solidarité communautaire en apportant un soutien concret aux femmes et familles en difficulté.</p>
         
@@ -208,6 +288,19 @@ export default function ProgrammeDetail({ params }: { readonly params: Promise<{
       location: "Théâtre National Daniel Sorano",
       slug: "financement-appui-membres",
       instructor: "Thierno Amadou BA",
+      instructorBio: "Expert en financement et développement économique avec une expertise reconnue dans l'accompagnement des entrepreneurs.",
+      participants: "Membres sélectionnés",
+      objectives: [
+        "Financer des projets viables et durables",
+        "Accompagner les membres dans leur développement économique",
+        "Créer des opportunités d'entrepreneuriat",
+        "Renforcer les capacités financières",
+        "Développer un réseau de soutien mutuel"
+      ],
+      methodology: "Processus de sélection rigoureux, accompagnement personnalisé et suivi régulier des projets financés avec mentorat spécialisé.",
+      prerequisites: "Être membre actif du réseau REFLET avec un projet viable et un plan d'affaires.",
+      certification: "Attestation de financement et suivi de projet.",
+      gallery: [],
       content: `
         <p>Le programme de financement REFLET concrétise l'engagement du réseau envers ses membres en leur apportant un soutien financier et un accompagnement personnalisé.</p>
         
@@ -472,7 +565,7 @@ export default function ProgrammeDetail({ params }: { readonly params: Promise<{
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 0.9 }}
-            className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white rounded-2xl p-6 shadow-2xl border border-gray-200 z-20"
+            className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white rounded-2xl p-6 shadow-2xl border border-gray-200 z-50"
           >
             <div className="text-center mb-4">
               <h3 className="font-heading text-lg font-semibold text-primary mb-2">Partager ce programme</h3>
@@ -518,7 +611,7 @@ export default function ProgrammeDetail({ params }: { readonly params: Promise<{
         {/* Overlay pour fermer le menu */}
         {isShareMenuOpen && (
           <button
-            className="absolute inset-0 z-10 w-full h-full bg-transparent border-none cursor-default"
+            className="fixed inset-0 z-40 w-full h-full bg-black/20 backdrop-blur-sm border-none cursor-default"
             onClick={() => setIsShareMenuOpen(false)}
             onKeyDown={(e) => {
               if (e.key === 'Escape') {
@@ -587,15 +680,9 @@ export default function ProgrammeDetail({ params }: { readonly params: Promise<{
               {/* Actions flottantes */}
               <div className="hidden lg:block w-16">
                 <div className="sticky top-24 space-y-4">
-                  <button className="w-12 h-12 bg-primary text-white rounded-full flex items-center justify-center hover:bg-primary/90 transition-colors shadow-lg">
-                    <ThumbsUp size={20} />
-                  </button>
-                  <button className="w-12 h-12 bg-secondary text-primary rounded-full flex items-center justify-center hover:bg-secondary/90 transition-colors shadow-lg">
-                    <MessageCircle size={20} />
-                  </button>
                   <button 
                     onClick={() => setIsShareMenuOpen(!isShareMenuOpen)}
-                    className="w-12 h-12 bg-gray-100 text-neutral-dark rounded-full flex items-center justify-center hover:bg-gray-200 transition-colors shadow-lg"
+                    className="w-12 h-12 bg-primary text-white rounded-full flex items-center justify-center hover:bg-primary/90 transition-colors shadow-lg"
                   >
                     <Share2 size={20} />
                   </button>
@@ -604,19 +691,136 @@ export default function ProgrammeDetail({ params }: { readonly params: Promise<{
 
               {/* Contenu principal */}
               <div className="flex-1">
+                {/* Section Instructeur */}
                 <motion.div
                   initial={{ opacity: 0, y: 30 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.6 }}
-                  className="programme-content"
+                  className="mb-12"
                 >
-                  <div 
-                    className="prose prose-lg max-w-none prose-headings:text-primary prose-headings:font-heading prose-h2:text-2xl prose-h2:font-bold prose-h2:mt-12 prose-h2:mb-6 prose-h3:text-xl prose-h3:font-semibold prose-h3:mt-8 prose-h3:mb-4 prose-p:text-neutral-dark prose-p:leading-relaxed prose-p:mb-6 prose-ul:text-neutral-dark prose-li:mb-2 prose-strong:text-primary prose-a:text-primary prose-a:no-underline hover:prose-a:underline"
-                    dangerouslySetInnerHTML={{ __html: programme.content }}
-                  />
+                  <div className="bg-gradient-to-r from-primary/5 to-secondary/5 rounded-2xl p-8">
+                    <h3 className="font-heading text-2xl font-bold text-primary mb-6 flex items-center">
+                      <User className="mr-3 text-secondary" size={24} />
+                      À propos de l'instructeur
+                    </h3>
+                    <div className="flex flex-col md:flex-row items-start gap-6">
+                      <div className="w-20 h-20 bg-gradient-to-r from-primary to-secondary rounded-full flex items-center justify-center text-white font-bold text-xl">
+                        {programme.instructor.charAt(0)}
+                      </div>
+                      <div className="flex-1">
+                        <h4 className="font-heading text-xl font-semibold text-primary mb-2">
+                          {programme.instructor}
+                        </h4>
+                        <p className="text-neutral-dark leading-relaxed">
+                          {programme.instructorBio}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
                 </motion.div>
 
-                {/* Fonctionnalités */}
+                {/* Section Objectifs */}
+                <motion.div
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6 }}
+                  className="mb-12"
+                >
+                  <h3 className="font-heading text-2xl font-bold text-primary mb-6 flex items-center">
+                    <Target className="mr-3 text-secondary" size={24} />
+                    Objectifs de la formation
+                  </h3>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    {programme.objectives?.map((objective) => (
+                      <div key={objective} className="flex items-start p-4 bg-white rounded-lg shadow-sm border border-gray-100">
+                        <div className="w-6 h-6 bg-secondary/20 rounded-full flex items-center justify-center mr-3 mt-0.5 flex-shrink-0">
+                          <CheckCircle className="text-secondary" size={14} />
+                        </div>
+                        <span className="text-neutral-dark font-medium">{objective}</span>
+                      </div>
+                    ))}
+                  </div>
+                </motion.div>
+
+                {/* Section Méthodologie */}
+                <motion.div
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6 }}
+                  className="mb-12"
+                >
+                  <h3 className="font-heading text-2xl font-bold text-primary mb-6 flex items-center">
+                    <BookOpen className="mr-3 text-secondary" size={24} />
+                    Méthodologie
+                  </h3>
+                  <div className="bg-white rounded-lg p-6 shadow-sm border border-gray-100">
+                    <p className="text-neutral-dark leading-relaxed text-lg">
+                      {programme.methodology}
+                    </p>
+                  </div>
+                </motion.div>
+
+                {/* Section Informations pratiques */}
+                <motion.div
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6 }}
+                  className="mb-12"
+                >
+                  <h3 className="font-heading text-2xl font-bold text-primary mb-6 flex items-center">
+                    <Calendar className="mr-3 text-secondary" size={24} />
+                    Informations pratiques
+                  </h3>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div className="bg-white rounded-lg p-6 shadow-sm border border-gray-100">
+                      <h4 className="font-heading text-lg font-semibold text-primary mb-3">Prérequis</h4>
+                      <p className="text-neutral-dark">{programme.prerequisites}</p>
+                    </div>
+                    <div className="bg-white rounded-lg p-6 shadow-sm border border-gray-100">
+                      <h4 className="font-heading text-lg font-semibold text-primary mb-3">Certification</h4>
+                      <p className="text-neutral-dark">{programme.certification}</p>
+                    </div>
+                    <div className="bg-white rounded-lg p-6 shadow-sm border border-gray-100">
+                      <h4 className="font-heading text-lg font-semibold text-primary mb-3">Participants</h4>
+                      <p className="text-neutral-dark">{programme.participants}</p>
+                    </div>
+                    <div className="bg-white rounded-lg p-6 shadow-sm border border-gray-100">
+                      <h4 className="font-heading text-lg font-semibold text-primary mb-3">Format</h4>
+                      <p className="text-neutral-dark">{programme.format}</p>
+                    </div>
+                  </div>
+                </motion.div>
+
+                {/* Galerie d'images */}
+                {programme.gallery && programme.gallery.length > 0 && (
+                  <motion.div
+                    initial={{ opacity: 0, y: 30 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.6 }}
+                    className="mb-12"
+                  >
+                    <h3 className="font-heading text-2xl font-bold text-primary mb-6 flex items-center">
+                      <Eye className="mr-3 text-secondary" size={24} />
+                      Galerie photos
+                    </h3>
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                      {programme.gallery.map((image) => (
+                        <div key={image} className="group relative overflow-hidden rounded-xl shadow-lg hover:shadow-xl transition-all duration-300">
+                          <img
+                            src={image}
+                            alt={`${programme.title} - Galerie`}
+                            className="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300"
+                          />
+                          <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-300"></div>
+                        </div>
+                      ))}
+                    </div>
+                </motion.div>
+                )}
+
+
+                {/* Fonctionnalités - Affiché seulement si le programme n'est pas passé */}
+                {!isProgrammePassed(programme.schedule) && (
                 <motion.div
                   initial={{ opacity: 0, y: 30 }}
                   whileInView={{ opacity: 1, y: 0 }}
@@ -639,6 +843,7 @@ export default function ProgrammeDetail({ params }: { readonly params: Promise<{
             ))}
           </div>
                 </motion.div>
+                )}
 
                 {/* Tags et Actions */}
           <motion.div
@@ -665,14 +870,6 @@ export default function ProgrammeDetail({ params }: { readonly params: Promise<{
 
                     {/* Actions sociales */}
                     <div className="flex items-center gap-4">
-                      <button className="flex items-center gap-2 px-4 py-2 bg-gray-100 text-neutral-dark rounded-lg hover:bg-gray-200 transition-colors">
-                        <ThumbsUp size={16} />
-                        <span>J'aime</span>
-                      </button>
-                      <button className="flex items-center gap-2 px-4 py-2 bg-gray-100 text-neutral-dark rounded-lg hover:bg-gray-200 transition-colors">
-                        <MessageCircle size={16} />
-                        <span>Commenter</span>
-                      </button>
                       <button 
                         onClick={() => setIsShareMenuOpen(!isShareMenuOpen)}
                         className="flex items-center gap-2 px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary/90 transition-colors"

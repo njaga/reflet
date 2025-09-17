@@ -8,6 +8,39 @@ import {
 } from "lucide-react";
 
 export default function Programmes() {
+  // Fonction pour déterminer si un programme est passé
+  const isProgrammePassed = (schedule: string) => {
+    // Si le programme est continu ou selon les besoins, il n'est pas passé
+    if (schedule === "Continue" || schedule === "Selon les besoins") {
+      return false;
+    }
+    
+    // Extraire la date du schedule
+    const dateRegex = /(\d{1,2})\s+(\w+)\s+(\d{4})/;
+    const dateMatch = dateRegex.exec(schedule);
+    if (!dateMatch) return false;
+    
+    const day = parseInt(dateMatch[1]);
+    const monthName = dateMatch[2];
+    const year = parseInt(dateMatch[3]);
+    
+    // Convertir le nom du mois en français
+    const monthMap: { [key: string]: number } = {
+      'Janvier': 0, 'Février': 1, 'Mars': 2, 'Avril': 3, 'Mai': 4, 'Juin': 5,
+      'Juillet': 6, 'Août': 7, 'Septembre': 8, 'Octobre': 9, 'Novembre': 10, 'Décembre': 11
+    };
+    
+    const month = monthMap[monthName];
+    if (month === undefined) return false;
+    
+    // Créer la date du programme
+    const programmeDate = new Date(year, month, day);
+    const today = new Date();
+    
+    // Comparer avec la date actuelle
+    return programmeDate < today;
+  };
+
   const programmes = [
     {
       id: 1,
@@ -390,84 +423,143 @@ export default function Programmes() {
                 transition={{ duration: 0.6, delay: index * 0.1 }}
                 className="group"
               >
-                <div className="bg-white rounded-lg overflow-hidden hover:shadow-2xl transition-all duration-300 group-hover:-translate-y-2 border border-gray-100">
+                <div className="bg-white rounded-2xl overflow-hidden hover:shadow-2xl transition-all duration-500 group-hover:-translate-y-3 border border-gray-100 hover:border-primary/20 relative">
                   {/* Image du programme */}
-                  <div className="relative h-48 overflow-hidden">
+                  <div className="relative h-56 overflow-hidden">
                     <img
                       src={programme.image}
                       alt={programme.title}
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 ease-out"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
-                    <div className="absolute bottom-4 left-4 text-white">
-                      <div className="inline-flex items-center px-3 py-1 bg-secondary text-primary rounded-full text-sm font-semibold mb-2">
-                        <Award className="mr-1" size={12} />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent"></div>
+                    
+                    {/* Badge de statut */}
+                    <div className="absolute top-4 right-4">
+                      {isProgrammePassed(programme.schedule) ? (
+                        <div className="inline-flex items-center px-3 py-1 bg-gray-600/90 backdrop-blur-sm text-white rounded-full text-xs font-semibold shadow-lg">
+                          <Clock className="mr-1" size={12} />
+                          Terminé
+                        </div>
+                      ) : (
+                        <div className="inline-flex items-center px-3 py-1 bg-green-500/90 backdrop-blur-sm text-white rounded-full text-xs font-semibold shadow-lg">
+                          <CheckCircle className="mr-1" size={12} />
+                          Disponible
+                        </div>
+                      )}
+                    </div>
+
+                    {/* Prix */}
+                    <div className="absolute top-4 left-4">
+                      <div className="inline-flex items-center px-3 py-1 bg-secondary/95 backdrop-blur-sm text-primary rounded-full text-sm font-bold shadow-lg">
+                        <Award className="mr-1" size={14} />
                         {programme.price}
                       </div>
-                      <h3 className="font-heading text-xl font-bold text-white">
+                    </div>
+
+                    {/* Titre avec effet de dégradé */}
+                    <div className="absolute bottom-4 left-4 right-4">
+                      <h3 className="font-heading text-xl font-bold text-white leading-tight mb-2 drop-shadow-lg">
                         {programme.title}
                       </h3>
+                      <div className="flex items-center text-white/90 text-sm">
+                        <Calendar className="mr-1" size={14} />
+                        <span>{programme.schedule}</span>
+                      </div>
                     </div>
                   </div>
                   
                   <div className="p-6">
-                    <p className="text-neutral-dark leading-relaxed mb-6">
+                    <p className="text-neutral-dark leading-relaxed mb-6 text-sm">
                       {programme.description}
                     </p>
 
-                    <div className="grid grid-cols-2 gap-4 mb-6">
-                      <div className="flex items-center">
-                        <Clock className="text-primary mr-2" size={16} />
-                        <span className="text-sm text-neutral-dark">{programme.duration}</span>
+                    {/* Informations du programme avec design amélioré */}
+                    <div className="space-y-4 mb-6">
+                      <div className="grid grid-cols-2 gap-3">
+                        <div className="flex items-center p-3 bg-primary/5 rounded-lg hover:bg-primary/10 transition-colors">
+                          <div className="w-8 h-8 bg-primary/10 rounded-full flex items-center justify-center mr-3">
+                            <Clock className="text-primary" size={16} />
+                          </div>
+                          <div>
+                            <p className="text-xs text-gray-500 font-medium">Durée</p>
+                            <p className="text-sm font-semibold text-neutral-dark">{programme.duration}</p>
+                          </div>
+                        </div>
+                        <div className="flex items-center p-3 bg-secondary/5 rounded-lg hover:bg-secondary/10 transition-colors">
+                          <div className="w-8 h-8 bg-secondary/10 rounded-full flex items-center justify-center mr-3">
+                            <Users className="text-secondary" size={16} />
+                          </div>
+                          <div>
+                            <p className="text-xs text-gray-500 font-medium">Format</p>
+                            <p className="text-sm font-semibold text-neutral-dark">{programme.format}</p>
+                          </div>
+                        </div>
                       </div>
-                      <div className="flex items-center">
-                        <Users className="text-primary mr-2" size={16} />
-                        <span className="text-sm text-neutral-dark">{programme.format}</span>
-                      </div>
-                      <div className="flex items-center">
-                        <Target className="text-primary mr-2" size={16} />
-                        <span className="text-sm text-neutral-dark">{programme.level}</span>
-                      </div>
-                      <div className="flex items-center">
-                        <Calendar className="text-primary mr-2" size={16} />
-                        <span className="text-sm text-neutral-dark">{programme.schedule}</span>
+                      
+                      <div className="grid grid-cols-2 gap-3">
+                        <div className="flex items-center p-3 bg-primary/5 rounded-lg hover:bg-primary/10 transition-colors">
+                          <div className="w-8 h-8 bg-primary/10 rounded-full flex items-center justify-center mr-3">
+                            <Target className="text-primary" size={16} />
+                          </div>
+                          <div>
+                            <p className="text-xs text-gray-500 font-medium">Niveau</p>
+                            <p className="text-sm font-semibold text-neutral-dark">{programme.level}</p>
+                          </div>
+                        </div>
+                        <div className="flex items-center p-3 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors">
+                          <div className="w-8 h-8 bg-gray-100 rounded-full flex items-center justify-center mr-3">
+                            <MapPin className="text-gray-600" size={16} />
+                          </div>
+                          <div>
+                            <p className="text-xs text-gray-500 font-medium">Lieu</p>
+                            <p className="text-sm font-semibold text-neutral-dark">{programme.location}</p>
+                          </div>
+                        </div>
                       </div>
                     </div>
 
+                    {/* Fonctionnalités avec design amélioré */}
                     <div className="mb-6">
-                      <div className="flex items-center mb-2">
-                        <MapPin className="text-primary mr-2" size={16} />
-                        <span className="text-sm text-neutral-dark">{programme.location}</span>
-                      </div>
-                    </div>
-
-                    <div className="mb-6">
-                      <h4 className="font-heading text-lg font-semibold text-primary mb-3">
-                        Ce que vous allez apprendre :
+                      <h4 className="font-heading text-lg font-semibold text-primary mb-4 flex items-center">
+                        <Lightbulb className="mr-2 text-secondary" size={20} />
+                        Ce que vous allez apprendre
                       </h4>
-                      <ul className="space-y-2">
+                      <div className="space-y-3">
                         {programme.features.slice(0, 3).map((feature, idx) => (
-                          <li key={`feature-${programme.id}-${feature.substring(0, 20).replace(/\s+/g, '-').toLowerCase()}`} className="flex items-start">
-                            <CheckCircle className="text-secondary mt-1 mr-2 flex-shrink-0" size={16} />
-                            <span className="text-sm text-neutral-dark">{feature}</span>
-                          </li>
+                          <div key={`feature-${programme.id}-${feature.substring(0, 20).replace(/\s+/g, '-').toLowerCase()}`} 
+                               className="flex items-start p-3 bg-gradient-to-r from-secondary/5 to-primary/5 rounded-lg hover:from-secondary/10 hover:to-primary/10 transition-all duration-300">
+                            <div className="w-6 h-6 bg-secondary/20 rounded-full flex items-center justify-center mr-3 mt-0.5 flex-shrink-0">
+                              <CheckCircle className="text-secondary" size={14} />
+                            </div>
+                            <span className="text-sm text-neutral-dark font-medium leading-relaxed">{feature}</span>
+                          </div>
                         ))}
-                      </ul>
+                      </div>
                     </div>
 
+                    {/* Boutons d'action améliorés */}
                     <div className="flex gap-3">
                       <Link
                         href={`/programmes/${programme.slug}`}
-                        className="flex-1 bg-primary text-white py-3 rounded-lg font-semibold hover:bg-primary/90 transition-colors text-center"
+                        className="flex-1 bg-gradient-to-r from-primary to-primary/90 text-white py-3 px-4 rounded-xl font-semibold hover:from-primary/90 hover:to-primary transition-all duration-300 text-center shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 flex items-center justify-center group"
                       >
+                        <BookOpen className="mr-2 group-hover:rotate-12 transition-transform duration-300" size={16} />
                         Voir les détails
                       </Link>
-                      <Link
-                        href="/contact"
-                        className="flex-1 bg-secondary text-primary py-3 rounded-lg font-semibold hover:bg-secondary/90 transition-colors text-center"
-                      >
-                        S'inscrire
-                      </Link>
+                      {!isProgrammePassed(programme.schedule) ? (
+                        <Link
+                          href="/contact"
+                          className="flex-1 bg-gradient-to-r from-secondary to-secondary/90 text-primary py-3 px-4 rounded-xl font-semibold hover:from-secondary/90 hover:to-secondary transition-all duration-300 text-center shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 flex items-center justify-center group"
+                        >
+                          <Heart className="mr-2 group-hover:scale-110 transition-transform duration-300" size={16} />
+                          S'inscrire
+                        </Link>
+                      ) : (
+                        <div className="flex-1 bg-gray-100 text-gray-500 py-3 px-4 rounded-xl font-semibold text-center cursor-not-allowed flex items-center justify-center opacity-60">
+                          <Clock className="mr-2" size={16} />
+                          Programme terminé
+                        </div>
+                      )}
                     </div>
                   </div>
                 </div>

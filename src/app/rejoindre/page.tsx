@@ -2,12 +2,100 @@
 
 import { motion } from "framer-motion";
 import Link from "next/link";
+import { useState } from "react";
 import { 
   Send, Users, Heart, MessageSquare, BookOpen, User, Calendar, Target,
-  Star, Globe, TrendingUp
+  Star, Globe, TrendingUp, Loader2, CheckCircle
 } from "lucide-react";
 
 export default function Rejoindre() {
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
+  const [formData, setFormData] = useState({
+    firstName: '',
+    lastName: '',
+    email: '',
+    phone: '',
+    age: '',
+    city: '',
+    profession: '',
+    experience: '',
+    education: '',
+    sector: '',
+    motivation: '',
+    goals: '',
+    contribution: '',
+    programmes: [] as string[],
+    availability: '',
+    format: ''
+  });
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({
+      ...prev,
+      [name]: value
+    }));
+  };
+
+  const handleCheckboxChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { value, checked } = e.target;
+    setFormData(prev => ({
+      ...prev,
+      programmes: checked 
+        ? [...prev.programmes, value]
+        : prev.programmes.filter(p => p !== value)
+    }));
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+    setSubmitStatus('idle');
+
+    try {
+      const response = await fetch('/api/send-email', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          type: 'inscription',
+          ...formData,
+          age: parseInt(formData.age)
+        }),
+      });
+
+      if (response.ok) {
+        setSubmitStatus('success');
+        setFormData({
+          firstName: '',
+          lastName: '',
+          email: '',
+          phone: '',
+          age: '',
+          city: '',
+          profession: '',
+          experience: '',
+          education: '',
+          sector: '',
+          motivation: '',
+          goals: '',
+          contribution: '',
+          programmes: [],
+          availability: '',
+          format: ''
+        });
+      } else {
+        setSubmitStatus('error');
+      }
+    } catch (error) {
+      console.error('Erreur:', error);
+      setSubmitStatus('error');
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
   return (
     <div className="min-h-screen">
       {/* Hero Section */}
@@ -314,7 +402,30 @@ export default function Rejoindre() {
               transition={{ duration: 0.6 }}
               className="bg-white rounded-lg p-8 shadow-2xl border border-gray-100"
             >
-              <form className="space-y-8">
+              <form onSubmit={handleSubmit} className="space-y-8">
+                {/* Message de statut */}
+                {submitStatus === 'success' && (
+                  <div className="bg-green-50 border border-green-200 rounded-lg p-4 mb-6">
+                    <div className="flex items-center">
+                      <CheckCircle className="text-green-500 mr-2" size={20} />
+                      <p className="text-green-700 font-medium">
+                        Candidature envoyée avec succès ! Nous vous contacterons dans les 48h pour la suite du processus.
+                      </p>
+                    </div>
+                  </div>
+                )}
+                
+                {submitStatus === 'error' && (
+                  <div className="bg-red-50 border border-red-200 rounded-lg p-4 mb-6">
+                    <div className="flex items-center">
+                      <MessageSquare className="text-red-500 mr-2" size={20} />
+                      <p className="text-red-700 font-medium">
+                        Erreur lors de l'envoi de la candidature. Veuillez réessayer.
+                      </p>
+                    </div>
+                  </div>
+                )}
+
                 {/* Informations Personnelles */}
                 <div>
                   <h3 className="font-heading text-2xl font-bold text-primary mb-6">
@@ -329,6 +440,8 @@ export default function Rejoindre() {
                         type="text"
                         id="firstName"
                         name="firstName"
+                        value={formData.firstName}
+                        onChange={handleInputChange}
                         required
                         className="w-full px-4 py-3 border-2 border-secondary/30 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary transition-colors"
                         placeholder="Votre prénom"
@@ -342,6 +455,8 @@ export default function Rejoindre() {
                         type="text"
                         id="lastName"
                         name="lastName"
+                        value={formData.lastName}
+                        onChange={handleInputChange}
                         required
                         className="w-full px-4 py-3 border-2 border-secondary/30 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary transition-colors"
                         placeholder="Votre nom"
@@ -355,6 +470,8 @@ export default function Rejoindre() {
                         type="email"
                         id="email"
                         name="email"
+                        value={formData.email}
+                        onChange={handleInputChange}
                         required
                         className="w-full px-4 py-3 border-2 border-secondary/30 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary transition-colors"
                         placeholder="votre@email.com"
@@ -368,6 +485,8 @@ export default function Rejoindre() {
                         type="tel"
                         id="phone"
                         name="phone"
+                        value={formData.phone}
+                        onChange={handleInputChange}
                         required
                         className="w-full px-4 py-3 border-2 border-secondary/30 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary transition-colors"
                         placeholder="+221 77 247 29 29"
@@ -381,6 +500,8 @@ export default function Rejoindre() {
                         type="number"
                         id="age"
                         name="age"
+                        value={formData.age}
+                        onChange={handleInputChange}
                         required
                         min="18"
                         max="65"
@@ -396,6 +517,8 @@ export default function Rejoindre() {
                         type="text"
                         id="city"
                         name="city"
+                        value={formData.city}
+                        onChange={handleInputChange}
                         required
                         className="w-full px-4 py-3 border-2 border-secondary/30 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary transition-colors"
                         placeholder="Votre ville"
@@ -418,6 +541,8 @@ export default function Rejoindre() {
                         type="text"
                         id="profession"
                         name="profession"
+                        value={formData.profession}
+                        onChange={handleInputChange}
                         required
                         className="w-full px-4 py-3 border-2 border-secondary/30 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary transition-colors"
                         placeholder="Votre profession"
@@ -430,6 +555,8 @@ export default function Rejoindre() {
                       <select
                         id="experience"
                         name="experience"
+                        value={formData.experience}
+                        onChange={handleInputChange}
                         className="w-full px-4 py-3 border-2 border-secondary/30 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary transition-colors"
                       >
                         <option value="">Sélectionnez</option>
@@ -446,6 +573,8 @@ export default function Rejoindre() {
                       <select
                         id="education"
                         name="education"
+                        value={formData.education}
+                        onChange={handleInputChange}
                         className="w-full px-4 py-3 border-2 border-secondary/30 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary transition-colors"
                       >
                         <option value="">Sélectionnez</option>
@@ -463,6 +592,8 @@ export default function Rejoindre() {
                       <select
                         id="sector"
                         name="sector"
+                        value={formData.sector}
+                        onChange={handleInputChange}
                         className="w-full px-4 py-3 border-2 border-secondary/30 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary transition-colors"
                       >
                         <option value="">Sélectionnez</option>
@@ -491,6 +622,8 @@ export default function Rejoindre() {
                       <textarea
                         id="motivation"
                         name="motivation"
+                        value={formData.motivation}
+                        onChange={handleInputChange}
                         rows={4}
                         required
                         className="w-full px-4 py-3 border-2 border-secondary/30 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary transition-colors"
@@ -504,6 +637,8 @@ export default function Rejoindre() {
                       <textarea
                         id="goals"
                         name="goals"
+                        value={formData.goals}
+                        onChange={handleInputChange}
                         rows={4}
                         className="w-full px-4 py-3 border-2 border-secondary/30 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary transition-colors"
                         placeholder="Décrivez vos objectifs personnels et professionnels..."
@@ -516,6 +651,8 @@ export default function Rejoindre() {
                       <textarea
                         id="contribution"
                         name="contribution"
+                        value={formData.contribution}
+                        onChange={handleInputChange}
                         rows={4}
                         className="w-full px-4 py-3 border-2 border-secondary/30 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary transition-colors"
                         placeholder="Décrivez comment vous souhaitez contribuer à notre mission..."
@@ -545,6 +682,8 @@ export default function Rejoindre() {
                             type="checkbox"
                             name="programmes"
                             value={programme}
+                            checked={formData.programmes.includes(programme)}
+                            onChange={handleCheckboxChange}
                             className="w-5 h-5 text-primary border-gray-300 rounded focus:ring-primary"
                           />
                           <span className="text-neutral-dark">{programme}</span>
@@ -567,6 +706,8 @@ export default function Rejoindre() {
                       <select
                         id="availability"
                         name="availability"
+                        value={formData.availability}
+                        onChange={handleInputChange}
                         className="w-full px-4 py-3 border-2 border-secondary/30 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary transition-colors"
                       >
                         <option value="">Sélectionnez</option>
@@ -583,6 +724,8 @@ export default function Rejoindre() {
                       <select
                         id="format"
                         name="format"
+                        value={formData.format}
+                        onChange={handleInputChange}
                         className="w-full px-4 py-3 border-2 border-secondary/30 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary transition-colors"
                       >
                         <option value="">Sélectionnez</option>
@@ -615,10 +758,20 @@ export default function Rejoindre() {
                 <div className="text-center">
                   <button
                     type="submit"
-                    className="inline-flex items-center px-12 py-4 bg-primary text-white rounded-lg font-semibold hover:bg-primary/90 transition-colors shadow-lg hover:shadow-xl text-lg"
+                    disabled={isSubmitting}
+                    className="inline-flex items-center px-12 py-4 bg-primary text-white rounded-lg font-semibold hover:bg-primary/90 transition-colors shadow-lg hover:shadow-xl text-lg disabled:opacity-50 disabled:cursor-not-allowed"
                   >
-                    <Send className="mr-2" size={20} />
-                    Soumettre ma candidature
+                    {isSubmitting ? (
+                      <>
+                        <Loader2 className="mr-2 animate-spin" size={20} />
+                        Soumission en cours...
+                      </>
+                    ) : (
+                      <>
+                        <Send className="mr-2" size={20} />
+                        Soumettre ma candidature
+                      </>
+                    )}
                   </button>
                   <p className="text-sm text-neutral-dark mt-4">
                     Nous vous contacterons dans les 48h pour la suite du processus

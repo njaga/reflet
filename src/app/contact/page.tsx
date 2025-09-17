@@ -2,12 +2,69 @@
 
 import { motion } from "framer-motion";
 import Link from "next/link";
+import { useState } from "react";
 import { 
   Mail, Phone, MapPin, Clock, Send, Users, Heart, MessageSquare, 
-  CheckCircle, BookOpen
+  CheckCircle, BookOpen, Loader2
 } from "lucide-react";
 
 export default function Contact() {
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
+  const [formData, setFormData] = useState({
+    firstName: '',
+    lastName: '',
+    email: '',
+    phone: '',
+    subject: '',
+    message: ''
+  });
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({
+      ...prev,
+      [name]: value
+    }));
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+    setSubmitStatus('idle');
+
+    try {
+      const response = await fetch('/api/send-email', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          type: 'contact',
+          ...formData
+        }),
+      });
+
+      if (response.ok) {
+        setSubmitStatus('success');
+        setFormData({
+          firstName: '',
+          lastName: '',
+          email: '',
+          phone: '',
+          subject: '',
+          message: ''
+        });
+      } else {
+        setSubmitStatus('error');
+      }
+    } catch (error) {
+      console.error('Erreur:', error);
+      setSubmitStatus('error');
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
   return (
     <div className="min-h-screen">
       {/* Hero Section */}
@@ -117,7 +174,30 @@ export default function Contact() {
                 <h3 className="font-heading text-2xl font-bold text-primary mb-6">
                   Remplissez le formulaire
                 </h3>
-                <form className="space-y-6">
+                <form onSubmit={handleSubmit} className="space-y-6">
+                  {/* Message de statut */}
+                  {submitStatus === 'success' && (
+                    <div className="bg-green-50 border border-green-200 rounded-lg p-4 mb-6">
+                      <div className="flex items-center">
+                        <CheckCircle className="text-green-500 mr-2" size={20} />
+                        <p className="text-green-700 font-medium">
+                          Message envoyé avec succès ! Nous vous répondrons dans les plus brefs délais.
+                        </p>
+                      </div>
+                    </div>
+                  )}
+                  
+                  {submitStatus === 'error' && (
+                    <div className="bg-red-50 border border-red-200 rounded-lg p-4 mb-6">
+                      <div className="flex items-center">
+                        <MessageSquare className="text-red-500 mr-2" size={20} />
+                        <p className="text-red-700 font-medium">
+                          Erreur lors de l'envoi du message. Veuillez réessayer.
+                        </p>
+                      </div>
+                    </div>
+                  )}
+
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div>
                       <label htmlFor="firstName" className="block text-sm font-medium text-neutral-dark mb-2">
@@ -127,6 +207,8 @@ export default function Contact() {
                         type="text"
                         id="firstName"
                         name="firstName"
+                        value={formData.firstName}
+                        onChange={handleInputChange}
                         required
                         className="w-full px-4 py-3 border-2 border-secondary/30 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary transition-colors"
                         placeholder="Votre prénom"
@@ -140,6 +222,8 @@ export default function Contact() {
                         type="text"
                         id="lastName"
                         name="lastName"
+                        value={formData.lastName}
+                        onChange={handleInputChange}
                         required
                         className="w-full px-4 py-3 border-2 border-secondary/30 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary transition-colors"
                         placeholder="Votre nom"
@@ -155,6 +239,8 @@ export default function Contact() {
                       type="email"
                       id="email"
                       name="email"
+                      value={formData.email}
+                      onChange={handleInputChange}
                       required
                       className="w-full px-4 py-3 border-2 border-secondary/30 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary transition-colors"
                       placeholder="votre@email.com"
@@ -169,6 +255,8 @@ export default function Contact() {
                       type="tel"
                       id="phone"
                       name="phone"
+                      value={formData.phone}
+                      onChange={handleInputChange}
                       className="w-full px-4 py-3 border-2 border-secondary/30 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary transition-colors"
                       placeholder="+221 77 247 29 29"
                     />
@@ -181,6 +269,8 @@ export default function Contact() {
                     <select
                       id="subject"
                       name="subject"
+                      value={formData.subject}
+                      onChange={handleInputChange}
                       required
                       className="w-full px-4 py-3 border-2 border-secondary/30 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary transition-colors"
                     >
@@ -200,6 +290,8 @@ export default function Contact() {
                     <textarea
                       id="message"
                       name="message"
+                      value={formData.message}
+                      onChange={handleInputChange}
                       rows={6}
                       required
                       className="w-full px-4 py-3 border-2 border-secondary/30 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary transition-colors"
@@ -209,10 +301,20 @@ export default function Contact() {
 
                   <button
                     type="submit"
-                    className="w-full bg-primary text-white py-4 rounded-lg font-semibold hover:bg-primary/90 transition-colors inline-flex items-center justify-center shadow-lg hover:shadow-xl"
+                    disabled={isSubmitting}
+                    className="w-full bg-primary text-white py-4 rounded-lg font-semibold hover:bg-primary/90 transition-colors inline-flex items-center justify-center shadow-lg hover:shadow-xl disabled:opacity-50 disabled:cursor-not-allowed"
                   >
-                    Envoyer le message
-                    <Send className="ml-2" size={20} />
+                    {isSubmitting ? (
+                      <>
+                        <Loader2 className="mr-2 animate-spin" size={20} />
+                        Envoi en cours...
+                      </>
+                    ) : (
+                      <>
+                        Envoyer le message
+                        <Send className="ml-2" size={20} />
+                      </>
+                    )}
                   </button>
                 </form>
               </div>
@@ -256,7 +358,7 @@ export default function Contact() {
                         Téléphone
                       </h4>
                       <p className="text-neutral-dark">
-                        772298974<br />
+                        77 229 89 74<br />
                         77 247 29 29
                       </p>
                     </div>

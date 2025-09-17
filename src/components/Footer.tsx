@@ -46,11 +46,6 @@ const Footer = () => {
                   Contact
                 </Link>
               </li>
-              <li>
-                <Link href="/legal" className="text-white/80 hover:text-secondary transition-colors">
-                  Mentions légales
-                </Link>
-              </li>
             </ul>
           </div>
 
@@ -60,7 +55,7 @@ const Footer = () => {
             <div className="space-y-2 text-white/80">
               <p>Dakar, Sénégal</p>
               <p>Email: contact@reflet.sn</p>
-              <p>Tél: +221 77 247 29 29</p>
+              <p>Tél: +221 77 229 89 74</p>
             </div>
           </div>
         </div>
